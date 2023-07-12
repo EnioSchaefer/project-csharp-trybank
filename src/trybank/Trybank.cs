@@ -89,7 +89,14 @@
     // 5. Construa a funcionalidade de depositar dinheiro
     public void Deposit(int value)
     {
-      throw new NotImplementedException();
+      if (Logged)
+      {
+        Bank[loggedUser, 3] += value;
+      }
+      else
+      {
+        throw new AccessViolationException("Usuário não está logado");
+      }
     }
 
     // 6. Construa a funcionalidade de sacar dinheiro
