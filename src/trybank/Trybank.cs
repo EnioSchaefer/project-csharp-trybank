@@ -41,7 +41,29 @@
     // 2. Construa a funcionalidade de fazer Login
     public void Login(int number, int agency, int pass)
     {
-      throw new NotImplementedException();
+      if (Logged)
+      {
+        throw new AccessViolationException("Usuário já está logado");
+      }
+
+      for (int index = 0; index <= registeredAccounts; index++)
+      {
+        if (Bank[index, 0] == number && Bank[index, 1] == agency)
+        {
+          if (Bank[index, 2] == pass)
+          {
+            Logged = true;
+            loggedUser = index;
+            return;
+          }
+          else
+          {
+            throw new ArgumentException("Senha incorreta");
+          }
+        }
+      }
+
+      throw new ArgumentException("Agência + Conta não encontrada");
     }
 
     // 3. Construa a funcionalidade de fazer Logout
