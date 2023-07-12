@@ -123,9 +123,30 @@
     // 7. Construa a funcionalidade de transferir dinheiro entre contas
     public void Transfer(int destinationNumber, int destinationAgency, int value)
     {
-      throw new NotImplementedException();
+      if (Logged)
+      {
+        int originBalance = Bank[loggedUser, 3];
+        if (originBalance < value)
+        {
+          throw new InvalidOperationException("Saldo insuficiente");
+        }
+        else
+        {
+          for (int index = 0; index <= registeredAccounts; index++)
+          {
+            if (Bank[index, 0] == destinationNumber && Bank[index, 1] == destinationAgency)
+            {
+              Bank[loggedUser, 3] -= value;
+              Bank[index, 3] += value;
+              return;
+            }
+          }
+        }
+      }
+      else
+      {
+        throw new AccessViolationException("Usuário não está logado");
+      }
     }
-
-
   }
 }
