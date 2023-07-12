@@ -83,7 +83,7 @@
     // 4. Construa a funcionalidade de checar o saldo
     public int CheckBalance()
     {
-      throw new NotImplementedException();
+      return Logged ? Bank[loggedUser, 3] : throw new AccessViolationException("Usuário não está logado");
     }
 
     // 5. Construa a funcionalidade de depositar dinheiro
